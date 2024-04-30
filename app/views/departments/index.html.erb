@@ -6,11 +6,8 @@
 
 <form action="/insert_department" method="post">
   <div>
-    <label for="name_box">
-      Name
-    </label>
-
-    <input type="text" id="name_box" name="query_name">
+    <label for="name_box">Name</label>
+    <input id = "name_box" type="text" name="query_name">
   </div>
 
   <button>
@@ -34,18 +31,18 @@
     </th>
   </tr>
 
-  <% @departments.each do |department| %>
+  <% @list_of_departments.each do |department| %>
     <tr>
       <td>
-        <%= @department.id %>
+        <%= department.id %>
       </td>
 
       <td>
-        <%= @department.name %>
+        <%= department.name %>
       </td>
 
       <td>
-        <a href="/departments/<%= @department.id %>">
+        <a href="/departments/<%= department.id %>">
           Show details
         </a>
       </td>
