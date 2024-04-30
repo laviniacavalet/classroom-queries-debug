@@ -50,7 +50,7 @@
 <hr>
 
 <h2>Courses</h2>
-<% courses = Course.where({ :department_id => @the_department.name }) %>
+<% courses = Course.where(department_id: @the_department.id) %>
 <ul>
   <% courses.each do |course| %>
     <li>

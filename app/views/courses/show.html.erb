@@ -80,21 +80,25 @@
   <dt>
     Number of enrolled students
   </dt>
-  <dd>
-    <%= Enrollment.where({ :course_id => @the_course.id }) %>
-  </dd>
+ <dd>
+  <%= Enrollment.where(course_id: @the_course.id).count %>
+</dd>
 </dl>
 
 <hr>
 
 <h2>Roster</h2>
 <ul>
-  <% Enrollment.where({ :course_id => @the_course.id }).each do |enrollment| %>
-    <% @student = Student.where({ :id => @enrollment.student_id }).at(0) %>
+<% Enrollment.where(course_id: @the_course.id).each do |enrollment| %>
+  <% student = Student.where(id: enrollment.student_id).at(0) %>
+  <% if student %>  <!-- Check if the student exists to prevent nil errors -->
     <li>
       <a href="/students/<%= student.id %>">
-        <%= @student.first_name %> <%= @student.last_name %>
+        <%= student.first_name %> <%= student.last_name %>
       </a>
     </li>
+  <% else %>
+    <li>Student not found</li>
   <% end %>
+<% end %>
 </ul>
