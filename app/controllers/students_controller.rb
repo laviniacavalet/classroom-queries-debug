@@ -1,25 +1,28 @@
 class StudentsController < ApplicationController
+
   def index
-    @students = Student.all.order({ :created_at => :desc })
+    matching_students = Student.all
+    @list_of_students = matching_students.order({ :created_at => :desc })
 
     render({ :template => "students/index" })
   end
 
   def show
     the_id = params.fetch("path_id")
-    @student = Student.where({:id => the_id }).at(0)
+    matching_students = Student.where({:id => the_id })
+    @the_student = matching_students.at(0)
 
     render({ :template => "students/show" })
   end
 
   def create
-    @student = Student.new
-    @student.first_name = params.fetch("query_first_name")
-    @student.last_name = params.fetch("query_last_name")
-    @student.email = params.fetch("query_email")
+    @the_student = Student.new
+    @the_student.first_name = params[:query_first_name]
+    @the_student.last_name = params.fetch("query_last_name")
+    @the_student.email = params.fetch("query_email")
 
-    if @student.valid?
-      @student.save
+    if @the_student.valid?
+      @the_student.save
       redirect_to("/students", { :notice => "Student created successfully." })
     else
       redirect_to("/students", { :notice => "Student failed to create successfully." })

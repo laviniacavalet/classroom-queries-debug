@@ -27,6 +27,7 @@ class DepartmentsController < ApplicationController
       redirect_to("/departments", { :notice => "Department failed to create successfully." })
     end
   end
+  
   def update
     the_id = params.fetch("path_id")
     @the_department = Department.where({ :id => the_id }).at(0)
